@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         if (isStationFound) {
             ((TextView) findViewById(R.id.elseD)).setText("");
         } else {
-            ((TextView) findViewById(R.id.elseD)).setText("このアプリは京阪以外の駅名に対応していません");
+            ((TextView) findViewById(R.id.elseD)).setText("このアプリは京阪以外の駅名に対応していません/");
         }
     }
 
