@@ -16,6 +16,14 @@ tools:context=".settei">
     android:layout_gravity="center"
     android:onClick="onButton3"
     />
+    <Button
+        android:id="@+id/distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="距離設定"
+        android:layout_gravity="center"
+        android:onClick="onButton12"
+        />
 
 <Button
     android:id="@+id/mainback"

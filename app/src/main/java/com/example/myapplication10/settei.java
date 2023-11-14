@@ -19,6 +19,11 @@ public class settei extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void onButton12(View v) {
+        Intent intent = new Intent(this, distance.class);
+        startActivity(intent);
+    }
+
     public void onButton4(View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
