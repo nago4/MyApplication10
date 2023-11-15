@@ -50,7 +50,7 @@ public class music extends AppCompatActivity {
         // リセット
         mediaPlayer.reset();
         // アクティビティを終了
-        finish();
+        //finish();
         // リソースの解放
         mediaPlayer.release();
         mediaPlayer = null;
