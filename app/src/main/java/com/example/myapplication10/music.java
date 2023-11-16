@@ -41,8 +41,8 @@ public class music extends AppCompatActivity {
     }
 
     public void onButton8(View view) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.alarm1);
-        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer = MediaPlayer.create(this,R.raw.alarm1);
+        mediaPlayer.start();
     }
     public void onButton10(View v){
         // 再生終了
@@ -54,21 +54,23 @@ public class music extends AppCompatActivity {
         // リソースの解放
         mediaPlayer.release();
         mediaPlayer = null;
-    }//音楽を止めるだけにしたい
+    }
 
     public void onButton9(View view) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this,R.raw.alarm2);
-        mediaPlayer.start(); // no need to call prepare(); create() does that for you
+        mediaPlayer = MediaPlayer.create(this,R.raw.alarm2);
+        mediaPlayer.start();
     }
     public void onButton11(View v){
-        super.onDestroy();
-        Log.v("MediaPlayer", "onButton11");
-        MediaPlayer player = null;
-        if (player.isPlaying()) {
-            player.stop();
-        }
-        player.release();
-    }//音楽を止めるだけにしたい
+        // 再生終了
+        mediaPlayer.stop();
+        // リセット
+        mediaPlayer.reset();
+        // アクティビティを終了
+        //finish();
+        // リソースの解放
+        mediaPlayer.release();
+        mediaPlayer = null;
+    }
 
     public void onButton7(View view) {
         Intent intent = new Intent(this,settei.class);
