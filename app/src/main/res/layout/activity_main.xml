@@ -17,14 +17,6 @@
         android:textColor="#44f"
         android:textSize="25dp" />
 
-    <Button
-        android:id="@+id/settei"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="right"
-        android:onClick="onButton1"
-        android:text="設定" />
-
     <TextView
         android:id="@+id/text_view2"
         android:layout_width="300dp"
@@ -63,6 +55,14 @@
         android:layout_gravity="center"
         android:onClick="onButton2"
         android:text="決定" />
+
+    <Button
+        android:id="@+id/settei"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onButton1"
+        android:text="設定" />
 
 
 </LinearLayout>
