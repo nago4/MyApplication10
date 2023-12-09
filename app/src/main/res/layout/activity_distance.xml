@@ -33,5 +33,12 @@
             android:layout_height="wrap_content"
             android:text="決定"
             android:onClick="onButton13"/>
+
+        <Button
+            android:id="@+id/back1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="戻る"
+            android:onClick="onButton14"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

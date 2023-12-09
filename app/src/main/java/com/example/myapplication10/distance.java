@@ -2,6 +2,7 @@ package com.example.myapplication10;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -16,5 +17,9 @@ public class distance extends AppCompatActivity {
     public void onButton13(View v) {
         EditText Distanc = (EditText) findViewById(R.id.Distanc);
         String DISTSNCE = Distanc.getText().toString();//文字列として取得
+    }
+    public void onButton14(View view) {
+        Intent intent = new Intent(this,settei.class);
+        startActivity(intent);
     }
 }
