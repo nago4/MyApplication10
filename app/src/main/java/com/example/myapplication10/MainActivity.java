@@ -149,10 +149,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     TextView distanceTextView = findViewById(R.id.distance);
                     distanceTextView.setText(distanceText);
 
+
+                    Intent intent = getIntent();
+                    double receivedNumber = intent.getDoubleExtra("distanc", 0.0);
                     //目的地から５００メートル以内に入った時,画面遷移が起こる。
-                    if (distance < 0.50) {
-                        Intent intent = new Intent(this, rennraku.class);
-                        startActivity(intent);
+                    if (distance < receivedNumber) {
+                        Intent newIntent = new Intent(this, rennraku.class);
+                        startActivity(newIntent);
                     } else {
                     }
                     break;
