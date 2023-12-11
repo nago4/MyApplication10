@@ -15,7 +15,7 @@ public class distance extends AppCompatActivity {
         setContentView(R.layout.activity_distance);
     }
     public void onButton13(View v) {
-        EditText DistanC = (EditText) findViewById(R.id.Distanc);
+        EditText DistanC = findViewById(R.id.Distanc);
         String DISTANCE = DistanC.getText().toString();//文字列として取得
 
         Intent intent = new Intent(this, MainActivity.class);

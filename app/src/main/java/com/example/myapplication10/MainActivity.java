@@ -99,13 +99,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
         // 緯度の表示
         TextView textView1 = findViewById(R.id.text_view1);
-        String str1 = "Latitude:" + currentLocation.getLatitude();
+        String str1 = "緯度:" + currentLocation.getLatitude();
         textView1.setText(str1);
 
 
         // 経度の表示
         TextView textView2 = findViewById(R.id.text_view2);
-        String str2 = "Longitude:" + currentLocation.getLongitude();
+        String str2 = "経度:" + currentLocation.getLongitude();
         textView2.setText(str2);
 
     }
@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                     double locA = currentLocation.getLatitude();
                     double locB = currentLocation.getLongitude();
                     double distance = Distance(locA, locB, goalA, goalB);
-                    String distanceText = "Distance: " + distance + " km";
+                    String distanceText = "目的地までの距離: " + distance + " km";
                     TextView distanceTextView = findViewById(R.id.distance);
                     distanceTextView.setText(distanceText);
 
