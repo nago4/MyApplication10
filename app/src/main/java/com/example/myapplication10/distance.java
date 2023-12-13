@@ -9,24 +9,25 @@ import android.widget.EditText;
 
 public class distance extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distance);
     }
+
+
     public void onButton13(View v) {
+
         EditText DistanC = findViewById(R.id.Distanc);
         String DISTANCE = DistanC.getText().toString();//文字列として取得
 
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("distanc", DISTANCE);
-        startActivity(intent);
         try {
             double inputNumber = Double.parseDouble(DISTANCE);
 
-            Intent newintent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("INPUT_NUMBER", inputNumber);
-            startActivity(newintent);
+            startActivity(intent);
         } catch (NumberFormatException e) {
             // 数値に変換できない場合のエラー処理
             e.printStackTrace();
