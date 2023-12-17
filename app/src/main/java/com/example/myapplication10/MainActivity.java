@@ -151,13 +151,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
 
                     Intent intent = getIntent();
-                    if (intent != null) {
-                        double receivedNumber = intent.getDoubleExtra("INPUT_NUMBER", 0.0);
-                        Log.d("MainActivity", "Received number: " + receivedNumber);
-                    }
                     double receivedNumber = intent.getDoubleExtra("distanc", 0.0);
                     //目的地から５００メートル以内に入った時,画面遷移が起こる。
-                    if (distance < receivedNumber) {
+                    if (distance < (int)receivedNumber) {
                         Intent newIntent = new Intent(this, rennraku.class);
                         startActivity(newIntent);
                     } else {
