@@ -64,5 +64,10 @@
         android:onClick="onButton1"
         android:text="設定" />
 
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="422dp" />
+
 
 </LinearLayout>

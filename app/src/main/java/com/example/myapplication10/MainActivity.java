@@ -2,6 +2,7 @@ package com.example.myapplication10;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,12 +20,22 @@ import android.widget.Toast;
 import android.Manifest;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 
 
 
 //.自分の現在位置（緯度、経度）を取得.
 
-public class MainActivity extends AppCompatActivity implements LocationListener {   //Activityに LocationListener を登録
+public class MainActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {   //Activityに LocationListener を登録
+
+    private MapView mapView;
+    private GoogleMap googleMap;
 
     LocationManager locationManager;  //後で位置情報の取得や監視などを行う際に、locationManagerオブジェクトを使用できる
     Location currentLocation; // Locationオブジェクトを保持するフィールド(これを書いたことで、ボタンの設定の時に、locAやlocBの変数に代入できた。）
@@ -58,6 +69,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else {
             locationStart();
         }
+        // MapView の初期化
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
     }
 
     private void locationStart() {
@@ -194,5 +209,40 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
                 Math.cos(locA/180*pi) * Math.cos((goalB - locB)/180*pi) * Math.cos(goalA/180*pi) +
                         Math.sin(locA/180*pi) * Math.sin(goalA/180*pi));
         return distance;
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap map ) {
+        googleMap = map;
+
+        // 自分の位置をマップ上に表示
+        if (currentLocation != null) {
+            LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+        }
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
     }
 }
