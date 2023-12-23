@@ -35,7 +35,9 @@ public class music extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("AlarmSound", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("selectedSoundResourceId", selectedSoundResourceId);
-        editor.apply();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+            editor.apply();
+        }
         ((TextView) findViewById(R.id.otokekka)).setText("");
         ((TextView) findViewById(R.id.otokekka)).setText("alarm2に設定しました。");
     }
