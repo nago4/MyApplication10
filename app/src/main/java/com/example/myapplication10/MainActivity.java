@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         mapView.getMapAsync(this);
     }
 
+
+
     private void locationStart() {
         Log.d("debug", "locationStart()");
 
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
                     Intent intent = getIntent();
-                    double receivedNumber = intent.getDoubleExtra("distanc", 0.0);
+                    double receivedNumber = intent.getDoubleExtra("distance", 0.0);
                     //目的地から５００メートル以内に入った時,画面遷移が起こる。
                     if (distance < (int)receivedNumber) {
                         Intent newIntent = new Intent(this, rennraku.class);
