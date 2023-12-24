@@ -1,7 +1,7 @@
-plugins {
-    id 'com.android.application'
-}
 
+plugins {
+    id 'com.android.application' version '8.0.2'
+}
 // build.gradle (Module-level)
 android {
     compileSdk 34
