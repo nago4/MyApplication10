@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        mapView = findViewById(R.id.mapView);
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
 
 
     }
@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onMapReady(GoogleMap map) {
-        googleMap = map;
-        updateMapLocation(currentLocation);
+        googleMap = map; // GoogleMapオブジェクトを保持する
+        updateMapLocation(currentLocation); // 現在地をマップに反映
     }
 
     @Override
@@ -243,4 +243,41 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         );
         return distance;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume(); // MapViewのonResumeメソッドを呼び出す
+    }
+
+    @Override
+    protected void onPause() {
+        mapView.onPause(); // MapViewのonPauseメソッドを呼び出す
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        mapView.onDestroy(); // MapViewのonDestroyメソッドを呼び出す
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState); // MapViewの状態を保存する
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart(); // MapViewのonStartメソッドを呼び出す
+    }
+
+    @Override
+    protected void onStop() {
+        mapView.onStop(); // MapViewのonStopメソッドを呼び出す
+        super.onStop();
+    }
+
 }
