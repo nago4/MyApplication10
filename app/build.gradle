@@ -1,17 +1,20 @@
-
 plugins {
-    id 'com.android.application' version '8.0.2'
+    id 'com.android.application'
 }
-// build.gradle (Module-level)
-android {
-    compileSdk 34
-    defaultConfig {
-        applicationId "com.example.myapp"
-        minSdkVersion 21
-        targetSdk 34
-        namespace 'com.example.myapp'
-    }
 
+android {
+    namespace 'com.example.myapplication10'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.myapplication10"
+        minSdk 24
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
 
     buildTypes {
         release {
@@ -28,7 +31,7 @@ android {
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.android.gms:play-services-maps:18.2.0'
     testImplementation 'junit:junit:4.13.2'
