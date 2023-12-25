@@ -20,6 +20,17 @@ import android.widget.Toast;
 import android.Manifest;
 import android.view.View;
 
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,13 +41,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 
 
-//.自分の現在位置（緯度、経度）を取得.
 
-public class MainActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {   //Activityに LocationListener を登録
+
+
+
+public class MainActivity extends AppCompatActivity implements LocationListener, OnMapReadyCallback {
+    //Activityに LocationListener を登録
 
     private MapView mapView;
     private GoogleMap googleMap;
-
     LocationManager locationManager;  //後で位置情報の取得や監視などを行う際に、locationManagerオブジェクトを使用できる
     Location currentLocation; // Locationオブジェクトを保持するフィールド(これを書いたことで、ボタンの設定の時に、locAやlocBの変数に代入できた。）
 
@@ -69,10 +82,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         } else {
             locationStart();
         }
-        // MapView の初期化
-        mapView = findViewById(R.id.mapView);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
+
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+
     }
 
     private void locationStart() {
@@ -109,9 +125,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     }
 
     @Override
+    public void onMapReady(GoogleMap map) {
+        googleMap = map;
+        updateMapLocation(currentLocation);
+    }
+
+    @Override
     public void onLocationChanged(Location location) {
         currentLocation = location; // フィールドにLocationを設定
-
+        updateMapLocation(location);
         // 緯度の表示
         TextView textView1 = findViewById(R.id.text_view1);
         String str1 = "緯度:" + currentLocation.getLatitude();
@@ -123,6 +145,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         String str2 = "経度:" + currentLocation.getLongitude();
         textView2.setText(str2);
 
+    }
+
+    private void updateMapLocation(Location location) {
+        if (googleMap != null && location != null) {
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            googleMap.clear();
+            googleMap.addMarker(new MarkerOptions().position(latLng).title("My Location"));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+        }
     }
 
     //京阪の駅名とその座標の保管
@@ -166,9 +197,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
                     Intent intent = getIntent();
-                    double receivedNumber = intent.getDoubleExtra("distanc", 0.0);
+                    double receivedNumber = intent.getDoubleExtra("distance", 0.0);
                     //目的地から５００メートル以内に入った時,画面遷移が起こる。
-                    if (distance < (int)receivedNumber) {
+                    if (distance < (int) receivedNumber) {
                         Intent newIntent = new Intent(this, rennraku.class);
                         startActivity(newIntent);
                     } else {
@@ -202,47 +233,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public void onProviderDisabled(String provider) {
 
     }
+
     //任意の座標との距離を求める関数(真球近似法)
-    private static double Distance(double locA,double locB,double goalA,double goalB){
+    private static double Distance(double locA, double locB, double goalA, double goalB) {
         double pi = Math.PI;
         double distance = 6371 * Math.acos(
-                Math.cos(locA/180*pi) * Math.cos((goalB - locB)/180*pi) * Math.cos(goalA/180*pi) +
-                        Math.sin(locA/180*pi) * Math.sin(goalA/180*pi));
+                Math.cos(locA / 180 * pi) * Math.cos((goalB - locB) / 180 * pi) * Math.cos(goalA / 180 * pi) +
+                        Math.sin(locA / 180 * pi) * Math.sin(goalA / 180 * pi)
+        );
         return distance;
-    }
-
-    @Override
-    public void onMapReady(@NonNull GoogleMap map ) {
-        googleMap = map;
-
-        // 自分の位置をマップ上に表示
-        if (currentLocation != null) {
-            LatLng currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            googleMap.addMarker(new MarkerOptions().position(currentLatLng).title("My Location"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
-        }
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        mapView.onLowMemory();
     }
 }
